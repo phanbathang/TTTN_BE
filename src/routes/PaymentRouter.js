@@ -1,8 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
-// import ZaloPayService from '../services/ZaloPayService';
-import createZaloPayOrder from '../services/ZaloPayService.js';
 import { createVNPayPaymentUrl } from '../services/VNPayService.js';
 import { createHmac } from 'crypto';
 
@@ -81,20 +79,6 @@ router.post('/refundPayment', async (req, res) => {
         return res
             .status(500)
             .json({ message: 'Hoàn tiền thất bại', error: error.message });
-    }
-});
-
-//ZaloPay
-router.post('/zalopay/create-order', async (req, res) => {
-    try {
-        const { amount, orderId } = req.body;
-        const result = await createZaloPayOrder({
-            amount,
-            orderId,
-        });
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
     }
 });
 
